@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="4dp">
+
+    <TextView
+        android:id="@+id/tv_word_type"
+        android:layout_width="64dp"
+        android:layout_height="match_parent"
+        android:textSize="16sp"
+        tools:text="【】"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/tv_chinese"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        tools:text="柜台；对立面；计数器，计算器；（棋盘游戏的）筹码；记分冰壶"/>
+</LinearLayout>
