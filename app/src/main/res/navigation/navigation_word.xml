@@ -6,7 +6,7 @@
     app:startDestination="@id/total_word_fragment">
 
     <fragment android:id="@+id/total_word_fragment"
-        android:name="com.example.www.saveps.ui.word.TotalWordFragment"
+        android:name="com.example.xiao.piglet.ui.word.TotalWordFragment"
         tools:layout="@layout/fragment_total_word">
         <action
             android:id="@+id/action_total_word_fragment_to_search_word_fragment"
@@ -18,11 +18,11 @@
 
     <fragment
         android:id="@+id/search_word_fragment"
-        android:name="com.example.www.saveps.ui.word.SearchWordFragment"
+        android:name="com.example.xiao.piglet.ui.word.SearchWordFragment"
         tools:layout="@layout/fragment_search_word" />
     <fragment
         android:id="@+id/word_detail_fragment"
-        android:name="com.example.www.saveps.ui.word.WordDetailFragment"
+        android:name="com.example.xiao.piglet.ui.word.WordDetailFragment"
         tools:layout="@layout/fragment_word_detail" >
         <argument
             android:name="arguments_english_word"

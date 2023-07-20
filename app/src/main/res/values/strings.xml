@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Practice</string>
+    <string name="app_name">Piglet</string>
     <string name="search">查询</string>
     <string name="where_password_is_used">是哪里的密码呢？</string>
     <string name="increase">新增</string>
