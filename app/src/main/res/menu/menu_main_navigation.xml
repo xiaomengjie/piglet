@@ -11,4 +11,8 @@
         android:icon="@drawable/ic_word_black"
         android:title="Word" />
 
+    <item android:id="@+id/nav_gen_shin"
+        android:title="GenShin"
+        android:icon="@drawable/ic_gen_shin_black"/>
+
 </menu>

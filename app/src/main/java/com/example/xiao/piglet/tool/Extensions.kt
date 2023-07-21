@@ -1,5 +1,7 @@
 package com.example.xiao.piglet.tool
 
+import android.content.res.Resources
+import android.util.TypedValue
 import kotlinx.coroutines.CoroutineScope
 
 fun String.md5(): String = MessageDigestUtil.md5(this)
@@ -24,3 +26,7 @@ suspend fun CoroutineScope.exception(action: suspend CoroutineScope.() -> Unit){
         e.printStackTrace()
     }
 }
+
+val Float.dp2px
+    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, Resources.getSystem().displayMetrics)
+
