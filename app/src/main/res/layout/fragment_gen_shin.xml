@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ui.genshin.GenShinFragment"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="128dp"
+            android:layout_height="match_parent"
+            android:text="请选择原神角色"
+            android:gravity="center_vertical"
+            android:padding="8dp" />
+
+        <Button
+            android:id="@+id/btn_select_character"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="请点击"
+            android:textColor="@color/black"
+            android:layout_marginStart="16dp"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="1dp"
+        android:paddingTop="16dp">
+        <TextView
+            android:layout_width="128dp"
+            android:layout_height="match_parent"
+            android:text="请选择词条"
+            android:gravity="center_vertical"
+            android:padding="8dp"/>
+
+        <Button
+            android:id="@+id/btn_select_entry1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="请点击"
+            android:textColor="@color/black"
+            android:layout_marginStart="16dp"/>
+
+        <EditText
+            android:id="@+id/et_entry1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            tools:text="128"
+            android:inputType="numberDecimal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:minWidth="80dp"
+            android:gravity="center" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="1dp"
+        android:paddingTop="16dp">
+        <TextView
+            android:layout_width="128dp"
+            android:layout_height="match_parent"
+            android:text="请选择词条"
+            android:gravity="center_vertical"
+            android:padding="8dp"/>
+
+        <Button
+            android:id="@+id/btn_select_entry2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="请点击"
+            android:textColor="@color/black"
+            android:layout_marginStart="16dp"/>
+
+        <EditText
+            android:id="@+id/et_entry2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            tools:text="128"
+            android:inputType="numberDecimal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:minWidth="80dp"
+            android:gravity="center" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="1dp"
+        android:paddingTop="16dp">
+        <TextView
+            android:layout_width="128dp"
+            android:layout_height="match_parent"
+            android:text="请选择词条"
+            android:gravity="center_vertical"
+            android:padding="8dp"/>
+
+        <Button
+            android:id="@+id/btn_select_entry3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="请点击"
+            android:textColor="@color/black"
+            android:layout_marginStart="16dp"/>
+
+        <EditText
+            android:id="@+id/et_entry3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            tools:text="128"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:minWidth="80dp"
+            android:gravity="center"
+            android:inputType="numberDecimal"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="1dp"
+        android:paddingTop="16dp">
+        <TextView
+            android:layout_width="128dp"
+            android:layout_height="match_parent"
+            android:text="请选择词条"
+            android:gravity="center_vertical"
+            android:padding="8dp"/>
+
+        <Button
+            android:id="@+id/btn_select_entry4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="请点击"
+            android:textColor="@color/black"
+            android:layout_marginStart="16dp"/>
+
+        <EditText
+            android:id="@+id/et_entry4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            tools:text="128"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:minWidth="80dp"
+            android:gravity="center"
+            android:inputType="numberDecimal"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <Button
+        android:id="@+id/btn_calculate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="计算"
+        android:padding="8dp"
+        android:layout_margin="16dp"/>
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        tools:text="10 + 20 = 30"/>
+</androidx.appcompat.widget.LinearLayoutCompat>
