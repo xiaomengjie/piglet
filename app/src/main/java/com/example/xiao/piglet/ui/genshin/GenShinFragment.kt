@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.xiao.piglet.base.BaseFragment
 import com.example.xiao.piglet.bean.CharacterCoefficient
 import com.example.xiao.piglet.databinding.FragmentGenShinBinding
+import com.example.xiao.piglet.tool.toast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
@@ -93,27 +94,71 @@ class GenShinFragment : BaseFragment<FragmentGenShinBinding>() {
     private fun calculate() {
         // 获取角色名
         val characterName = viewBinding.btnSelectCharacter.text.toString()
+        if (characterName == "请点击"){
+            "请先选择角色".toast(requireContext())
+            return
+        }
         // 获取角色对于不同词条的权重
         val coefficient = coefficientMap.getValue(characterName)
 
         // 获取词条名
         val entry1Name = viewBinding.btnSelectEntry1.text.toString()
         // 获取词条值
-        val entry1Value = viewBinding.etEntry1.text.toString().toDouble()
+        val entry1Value = viewBinding.etEntry1.text.toString().run {
+            if (isEmpty()){
+                0.0
+            }else{
+                toDouble()
+            }
+        }
         // 计算词条得分（词条值 * 词条分 * 角色对于该词条的权重）
-        val entry1Grade = (entry1Value * entryGradeMap.getValue(entry1Name) * coefficient.getValue(entry1Name))
+        val entry1Grade = if (entry1Name == "请点击"){
+            0.0
+        }else{
+            entry1Value * entryGradeMap.getValue(entry1Name) * coefficient.getValue(entry1Name)
+        }
 
         val entry2Name = viewBinding.btnSelectEntry2.text.toString()
-        val entry2Value = viewBinding.etEntry2.text.toString().toDouble()
-        val entry2Grade = entry2Value * entryGradeMap.getValue(entry2Name) * coefficient.getValue(entry2Name)
+        val entry2Value = viewBinding.etEntry2.text.toString().run {
+            if (isEmpty()){
+                0.0
+            }else{
+                toDouble()
+            }
+        }
+        val entry2Grade = if (entry2Name == "请点击"){
+            0.0
+        }else{
+            entry2Value * entryGradeMap.getValue(entry2Name) * coefficient.getValue(entry2Name)
+        }
 
         val entry3Name = viewBinding.btnSelectEntry3.text.toString()
-        val entry3Value = viewBinding.etEntry3.text.toString().toDouble()
-        val entry3Grade = entry3Value * entryGradeMap.getValue(entry3Name) * coefficient.getValue(entry3Name)
+        val entry3Value = viewBinding.etEntry3.text.toString().run {
+            if (isEmpty()){
+                0.0
+            }else{
+                toDouble()
+            }
+        }
+        val entry3Grade = if (entry3Name == "请点击"){
+            0.0
+        }else{
+            entry3Value * entryGradeMap.getValue(entry3Name) * coefficient.getValue(entry3Name)
+        }
 
         val entry4Name = viewBinding.btnSelectEntry4.text.toString()
-        val entry4Value = viewBinding.etEntry4.text.toString().toDouble()
-        val entry4Grade = entry4Value * entryGradeMap.getValue(entry4Name) * coefficient.getValue(entry4Name)
+        val entry4Value = viewBinding.etEntry4.text.toString().run {
+            if (isEmpty()){
+                0.0
+            }else{
+                toDouble()
+            }
+        }
+        val entry4Grade = if (entry4Name == "请点击"){
+            0.0
+        }else{
+            entry4Value * entryGradeMap.getValue(entry4Name) * coefficient.getValue(entry4Name)
+        }
 
         viewBinding.tvResult.text =
             "${entry1Grade.toBigDecimal().setScale(2, RoundingMode.HALF_UP)} + " +
@@ -145,7 +190,7 @@ class GenShinFragment : BaseFragment<FragmentGenShinBinding>() {
                 bufferedReader,
                 object : TypeToken<Map<String, CharacterCoefficient>>(){}.type) as Map<String, CharacterCoefficient>)
                 .filter { it.value.isValid }
-            characterName.addAll(result.keys.drop(7))
+            characterName.addAll(result.keys)
             result.entries.associateTo(coefficientMap){
                 it.key to mapOf(
                     "暴击率" to it.value.critical_chance,
