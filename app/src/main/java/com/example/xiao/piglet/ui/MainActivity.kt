@@ -1,6 +1,7 @@
 package com.example.xiao.piglet.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -23,6 +24,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            Log.i("MainActivity", "onCreate: ${destination.displayName}")
+        }
         // Setup the bottom navigation view with navController
         viewBinding.navBottom.setupWithNavController(navController)
     }

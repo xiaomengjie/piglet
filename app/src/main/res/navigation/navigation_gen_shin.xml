@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_gen_shin"
+    app:startDestination="@id/gen_shin_fragment">
+
+    <fragment
+        android:id="@+id/gen_shin_fragment"
+        android:name="com.example.xiao.piglet.ui.genshin.GenShinFragment"
+        android:label="fragment_gen_shin"
+        tools:layout="@layout/fragment_gen_shin" />
+</navigation>
