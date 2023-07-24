@@ -21,14 +21,24 @@
         android:layout_marginStart="8dp"/>
 
     <TextView
+        android:id="@+id/tv_pronunciation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/tv_english"
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_english"
+        android:textSize="14sp"
+        android:maxLines="1"
+        tools:text="英"/>
+
+    <TextView
         android:id="@+id/tv_chinese"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="4dp"
         app:layout_constraintStart_toStartOf="@id/tv_english"
         app:layout_constraintTop_toBottomOf="@id/tv_english"
+        app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center_vertical|start"
         android:textSize="16sp"
-        tools:text="逆时针方向"
-        android:maxLines="1" />
+        tools:text="n.逆时针方向" />
 </androidx.constraintlayout.widget.ConstraintLayout>

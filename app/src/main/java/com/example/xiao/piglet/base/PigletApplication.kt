@@ -1,15 +1,16 @@
 package com.example.xiao.piglet.base
 
 import android.app.Application
+import android.content.Context
 
-class BaseApplication: Application() {
+class PigletApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        context = this
+        context = applicationContext
     }
 
     companion object{
-        lateinit var context: BaseApplication
+        lateinit var context: Context
     }
 }

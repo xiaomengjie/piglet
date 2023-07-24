@@ -11,21 +11,10 @@
         <action
             android:id="@+id/action_total_word_fragment_to_search_word_fragment"
             app:destination="@id/search_word_fragment" />
-        <action
-            android:id="@+id/action_total_word_fragment_to_word_detail_fragment"
-            app:destination="@id/word_detail_fragment" />
     </fragment>
 
     <fragment
         android:id="@+id/search_word_fragment"
         android:name="com.example.xiao.piglet.ui.word.SearchWordFragment"
         tools:layout="@layout/fragment_search_word" />
-    <fragment
-        android:id="@+id/word_detail_fragment"
-        android:name="com.example.xiao.piglet.ui.word.WordDetailFragment"
-        tools:layout="@layout/fragment_word_detail" >
-        <argument
-            android:name="arguments_english_word"
-            app:argType="string" />
-    </fragment>
 </navigation>

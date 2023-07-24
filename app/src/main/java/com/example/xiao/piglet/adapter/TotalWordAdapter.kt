@@ -14,6 +14,7 @@ class TotalWordAdapter(
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val english: TextView = view.findViewById(R.id.tv_english)
         val chinese: TextView = view.findViewById(R.id.tv_chinese)
+        val pronunciation: TextView = view.findViewById(R.id.tv_pronunciation)
         init {
             view.setOnClickListener {
                 clickListener?.invoke(it, adapterPosition)
@@ -33,6 +34,7 @@ class TotalWordAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = passwords[position]
         holder.english.text = data.english
-        holder.chinese.text = data.chinese
+        holder.chinese.text = data.chinese.dropLast(1)
+        holder.pronunciation.text = "美${data.americaPronunciation} 英${data.englandPronunciation}"
     }
 }
