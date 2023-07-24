@@ -1,10 +1,7 @@
 package com.example.xiao.piglet.ui.word
 
-import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.xiao.piglet.R
@@ -13,11 +10,13 @@ import com.example.xiao.piglet.base.BaseFragment
 import com.example.xiao.piglet.base.MessageEvent
 import com.example.xiao.piglet.bean.Word
 import com.example.xiao.piglet.databinding.FragmentTotalWordBinding
-import com.example.xiao.piglet.network.NetworkClient
-import com.example.xiao.piglet.network.api.WordAPI
 import com.example.xiao.piglet.viewmodel.TotalWordViewModel
 import com.google.android.material.divider.MaterialDividerItemDecoration
 
+/*
+* 跳转到SearchWordFragment时，onDestroyView会调用
+* 返回TotalWordFragment时，会从onCreateView调用
+* */
 class TotalWordFragment : BaseFragment<FragmentTotalWordBinding>() {
 
     override fun initViewBinding(inflater: LayoutInflater): FragmentTotalWordBinding {
@@ -37,8 +36,8 @@ class TotalWordFragment : BaseFragment<FragmentTotalWordBinding>() {
         ViewModelProvider(this)[TotalWordViewModel::class.java]
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initView(viewBinding: FragmentTotalWordBinding) {
+        super.initView(viewBinding)
         viewBinding.wordRecyclerView.layoutManager = LinearLayoutManager(context)
         viewBinding.wordRecyclerView.addItemDecoration(MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL))
         viewBinding.wordRecyclerView.adapter = adapter
@@ -77,6 +76,5 @@ class TotalWordFragment : BaseFragment<FragmentTotalWordBinding>() {
 
     companion object{
         const val INCREASE_WORD = 1
-        const val arguments_english_word = "arguments_english_word"
     }
 }

@@ -8,13 +8,11 @@ import com.example.xiao.piglet.R
 import com.example.xiao.piglet.adapter.TotalWordAdapter
 import com.example.xiao.piglet.base.BaseFragment
 import com.example.xiao.piglet.bean.Word
-import com.example.xiao.piglet.bean.YDResponse
 import com.example.xiao.piglet.databinding.FragmentSearchWordBinding
 import com.example.xiao.piglet.network.NetworkClient
 import com.example.xiao.piglet.network.api.WordAPI
 import com.example.xiao.piglet.tool.exception
 import com.example.xiao.piglet.tool.isChinese
-import com.example.xiao.piglet.tool.toText
 import com.example.xiao.piglet.tool.toast
 import com.google.android.material.divider.MaterialDividerItemDecoration
 
