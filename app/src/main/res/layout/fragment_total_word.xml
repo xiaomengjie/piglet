@@ -6,4 +6,5 @@
     android:layout_height="match_parent"
     tools:context=".ui.word.TotalWordFragment"
     android:id="@+id/word_recyclerView">
+
 </androidx.recyclerview.widget.RecyclerView>

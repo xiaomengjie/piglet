@@ -8,16 +8,22 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface WordAPI {
 
-    @FormUrlEncoded
-    @POST("api")
-    suspend fun translate(@Field("q") content: String): YDResponse
-
-    @GET("word/queryAll")
-    suspend fun queryAllWord(): Response<List<Word>>
+//    @FormUrlEncoded
+//    @POST("api")
+//    suspend fun translate(@Field("q") content: String): YDResponse
 
     @POST("word/insert")
-    suspend fun increaseWord(@Body word: Word): Response<Word>
+    suspend fun increaseWord(@Body words: List<Word>): Response<Boolean>
+
+    @POST("word/delete")
+    suspend fun deleteWord(@Body englishes: List<String>): Response<Boolean>
+
+    @GET("word/query")
+    suspend fun queryWord(
+        @Query("english") english: String = "",
+        @Query("chinese") chinese: String = ""): Response<List<Word>>
 }
