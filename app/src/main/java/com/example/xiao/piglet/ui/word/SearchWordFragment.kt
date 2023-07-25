@@ -1,6 +1,5 @@
 package com.example.xiao.piglet.ui.word
 
-import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -52,8 +51,8 @@ class SearchWordFragment : BaseFragment<FragmentSearchWordBinding>() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initView(viewBinding: FragmentSearchWordBinding) {
+        super.initView(viewBinding)
         viewBinding.recyclerView.layoutManager = LinearLayoutManager(context)
         viewBinding.recyclerView.addItemDecoration(MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL))
         viewBinding.recyclerView.adapter = adapter
@@ -73,7 +72,7 @@ class SearchWordFragment : BaseFragment<FragmentSearchWordBinding>() {
                 response.data?.let {
                     words.clear()
                     words.addAll(it)
-                    adapter.notifyItemRangeChanged(0, words.size)
+                    adapter.notifyDataSetChanged()
                 }
             }
         }

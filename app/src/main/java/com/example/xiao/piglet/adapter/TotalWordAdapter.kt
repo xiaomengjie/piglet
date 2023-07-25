@@ -1,25 +1,43 @@
 package com.example.xiao.piglet.adapter
 
+import android.media.MediaPlayer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xiao.piglet.R
 import com.example.xiao.piglet.bean.Word
 
 class TotalWordAdapter(
-    private val passwords: List<Word>,
-    private val clickListener: ((View, Int) -> Unit)? = null): RecyclerView.Adapter<TotalWordAdapter.ViewHolder>() {
+    private val passwords: List<Word>
+): RecyclerView.Adapter<TotalWordAdapter.ViewHolder>() {
+
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val english: TextView = view.findViewById(R.id.tv_english)
         val chinese: TextView = view.findViewById(R.id.tv_chinese)
-        val pronunciation: TextView = view.findViewById(R.id.tv_pronunciation)
+        val ukPhonetic: TextView = view.findViewById(R.id.tv_uk_phonetic)
+        val usPhonetic: TextView = view.findViewById(R.id.tv_us_phonetic)
+        private val usSpeech: ImageView = view.findViewById(R.id.iv_uk_speech)
+        private val ukSpeech: ImageView = view.findViewById(R.id.iv_us_speech)
+
         init {
-            view.setOnClickListener {
-                clickListener?.invoke(it, adapterPosition)
+            ukSpeech.setOnClickListener {
+                playSpeech(adapterPosition)
+            }
+            usSpeech.setOnClickListener {
+                playSpeech(adapterPosition)
             }
         }
+    }
+
+    private val mediaPlayer by lazy { MediaPlayer() }
+    private fun playSpeech(adapterPosition: Int){
+        mediaPlayer.reset()
+        mediaPlayer.setDataSource(passwords[adapterPosition].ukSpeech)
+        mediaPlayer.prepare()
+        mediaPlayer.start()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,6 +53,7 @@ class TotalWordAdapter(
         val data = passwords[position]
         holder.english.text = data.english
         holder.chinese.text = data.chinese.dropLast(1)
-        holder.pronunciation.text = "美${data.americaPronunciation} 英${data.englandPronunciation}"
+        holder.ukPhonetic.text = "英${data.ukPhonetic}"
+        holder.usPhonetic.text = "美${data.usPhonetic}"
     }
 }
