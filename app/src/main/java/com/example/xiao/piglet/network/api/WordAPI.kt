@@ -2,10 +2,7 @@ package com.example.xiao.piglet.network.api
 
 import com.example.xiao.piglet.bean.Response
 import com.example.xiao.piglet.bean.Word
-import com.example.xiao.piglet.bean.YDResponse
 import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
