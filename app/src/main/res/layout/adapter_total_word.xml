@@ -16,7 +16,7 @@
         android:gravity="center"
         android:textSize="20sp"
         tools:text="counter clockwise"
-        android:textColor="@color/black"
+        android:textColor="@color/text_color_1"
         android:textStyle="bold"
         android:layout_marginStart="8dp"/>
 
@@ -33,13 +33,16 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:maxLines="1"
-            tools:text="英"/>
+            tools:text="英"
+            android:layout_marginStart="8dp"/>
         <ImageView
             android:id="@+id/iv_uk_speech"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_play_speech"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            app:tint="@color/text_color_1"
+            android:layout_marginStart="4dp"/>
         <TextView
             android:id="@+id/tv_us_phonetic"
             android:layout_width="wrap_content"
@@ -53,7 +56,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_play_speech"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            app:tint="@color/text_color_1"
+            android:layout_marginStart="4dp"/>
     </LinearLayout>
 
     <TextView

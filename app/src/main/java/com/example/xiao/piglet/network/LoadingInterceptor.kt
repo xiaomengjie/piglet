@@ -13,7 +13,6 @@ class LoadingInterceptor(private val dialog: LoadingDialog): Interceptor {
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        println("======${chain.request()}")
         handler.post{
             dialog.show()
         }
