@@ -14,6 +14,12 @@ object MessageDigestUtil {
         return toHex(messageDigest.digest())
     }
 
+    fun sha256(content: ByteArray): String{
+        val messageDigest = MessageDigest.getInstance("SHA-256")
+        messageDigest.update(content)
+        return toHex(messageDigest.digest())
+    }
+
     fun sha256(content: String): String {
         val messageDigest = MessageDigest.getInstance("SHA-256")
         messageDigest.update(content.encodeToByteArray())
@@ -29,6 +35,4 @@ object MessageDigestUtil {
         }
         return r.toString()
     }
-
-
 }
