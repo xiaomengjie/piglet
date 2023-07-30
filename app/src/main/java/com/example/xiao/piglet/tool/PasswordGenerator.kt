@@ -16,6 +16,7 @@ object PasswordGenerator {
             val source = lowerCaseLetters + upperCaseLetters + numbers + specialCharacters
             val result = ArrayList<Char>(passwordLength)
             do {
+                result.clear()
                 (1..passwordLength).map{
                     Random.nextInt(0, source.size)
                 }.mapTo(result) {

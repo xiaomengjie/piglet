@@ -10,6 +10,8 @@ import org.greenrobot.eventbus.ThreadMode
 
 abstract class BaseFragment<VB: ViewBinding>: Fragment(), MenuProvider {
 
+    protected open val TAG = javaClass.simpleName
+
     //ViewBinding
     protected val viewBinding: VB by lazy {
         val initViewBinding = initViewBinding(layoutInflater)

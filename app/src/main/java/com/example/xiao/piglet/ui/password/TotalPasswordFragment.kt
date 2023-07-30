@@ -13,6 +13,8 @@ import com.example.xiao.piglet.base.MessageEvent
 import com.example.xiao.piglet.bean.Password
 import com.example.xiao.piglet.databinding.FragmentTotalPasswordBinding
 import com.example.xiao.piglet.network.api.PasswordAPI
+import com.example.xiao.piglet.tool.SSL
+import com.example.xiao.piglet.tool.aesDecrypt
 
 class TotalPasswordFragment : BaseFragment<FragmentTotalPasswordBinding>() {
 
@@ -39,9 +41,8 @@ class TotalPasswordFragment : BaseFragment<FragmentTotalPasswordBinding>() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun initView(viewBinding: FragmentTotalPasswordBinding) {
+        super.initView(viewBinding)
         viewBinding.passwordList.layoutManager = LinearLayoutManager(context)
         viewBinding.passwordList.adapter = adapter
 
@@ -50,28 +51,32 @@ class TotalPasswordFragment : BaseFragment<FragmentTotalPasswordBinding>() {
 
     private fun queryAllPassword(){
         lifecycleScope.launchWhenCreated {
-            val allPassword = NetworkClient.create<PasswordAPI>().queryAllPassword()
-            allPassword.data?.let {
-                passwords.clear()
-                passwords.addAll(it)
-                adapter.notifyItemRangeChanged(0, passwords.size)
+            SSL.sslRequest { aesKey ->
+                val allPassword = NetworkClient.create<PasswordAPI>().queryAllPassword()
+                allPassword.data?.map {
+                    Password(it.name, it.content.aesDecrypt(aesKey), it.size)
+                }?.let {
+                    passwords.clear()
+                    passwords.addAll(it)
+                    adapter.notifyItemRangeChanged(0, passwords.size)
+                }
             }
         }
     }
 
     override fun <T> refreshDisplay(messageEvent: MessageEvent<T>) {
-        when(messageEvent.code){
-            Password.INCREASE_PASSWORD -> {
+        when(messageEvent.type){
+            INCREASE_PASSWORD -> {
                 val password = messageEvent.data as Password
                 passwords.add(password)
                 adapter.notifyItemInserted(passwords.size - 1)
             }
-            Password.DELETE_PASSWORD -> {
+            DELETE_PASSWORD -> {
                 val position = messageEvent.position
                 passwords.removeAt(position)
                 adapter.notifyItemRemoved(position)
             }
-            Password.UPDATE_PASSWORD -> {
+            UPDATE_PASSWORD -> {
                 val position = messageEvent.position
                 val password = messageEvent.data as Password
                 passwords[position] = password
@@ -97,5 +102,9 @@ class TotalPasswordFragment : BaseFragment<FragmentTotalPasswordBinding>() {
     companion object{
         const val EXTRA_PASSWORD = "extra_password"
         const val EXTRA_PASSWORD_POSITION = "extra_password_position"
+
+        const val INCREASE_PASSWORD = "increase_password"
+        const val DELETE_PASSWORD = "delete_password"
+        const val UPDATE_PASSWORD = "update_password"
     }
 }

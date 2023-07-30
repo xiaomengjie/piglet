@@ -23,4 +23,6 @@ interface WordAPI {
     suspend fun queryWord(
         @Query("english") english: String = "",
         @Query("chinese") chinese: String = ""): Response<List<Word>>
+
+
 }

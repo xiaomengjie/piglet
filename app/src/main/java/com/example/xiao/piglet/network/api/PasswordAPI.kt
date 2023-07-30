@@ -12,7 +12,7 @@ interface PasswordAPI {
 
     //增加密码
     @POST("password/insert")
-    suspend fun insertPassword(@Body password: Password): Response<Password>
+    suspend fun insertPassword(@Body password: Password): Response<Boolean>
 
     //通过位置删除密码
     @POST("password/delete")

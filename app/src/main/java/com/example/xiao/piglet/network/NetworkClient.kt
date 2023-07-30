@@ -1,7 +1,7 @@
 package com.example.xiao.piglet.network
 
 import android.content.Context
-import com.example.xiao.piglet.base.PigletApplication
+import com.example.xiao.piglet.network.interceptor.LoadingInterceptor
 import com.example.xiao.piglet.ui.dialog.LoadingDialog
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
