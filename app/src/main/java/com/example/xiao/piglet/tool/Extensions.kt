@@ -5,6 +5,7 @@ import android.content.res.Resources
 import android.util.Base64
 import android.util.TypedValue
 import android.widget.Toast
+import com.example.xiao.piglet.ui.dialog.LoadingDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -28,6 +29,19 @@ fun List<String>.toText(): String{
             append("\n")
         }
     }.toString()
+}
+
+suspend fun CoroutineScope.exceptionWithDialog(context: Context? = null, exceptionAction: (() -> Unit)? = null ,action: suspend CoroutineScope.() -> Unit){
+    val dialog = if (context == null) null else LoadingDialog(context)
+    dialog?.show()
+    try {
+        action.invoke(this)
+    }catch (e: Exception){
+        exceptionAction?.invoke()
+        e.printStackTrace()
+    }finally {
+        dialog?.dismiss()
+    }
 }
 
 suspend fun CoroutineScope.exception(action: suspend CoroutineScope.() -> Unit){

@@ -1,6 +1,7 @@
 package com.example.xiao.piglet.ui.word
 
 import android.view.*
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,11 +43,36 @@ class TotalWordFragment : BaseFragment<FragmentTotalWordBinding>() {
         viewBinding.wordRecyclerView.addItemDecoration(MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL))
         viewBinding.wordRecyclerView.adapter = adapter
 
+        viewBinding.swipeRefresh.setOnRefreshListener {
+            viewBinding.swipeRefresh.isRefreshing = false
+            viewModel.searchWords(requireContext())
+        }
+
         viewModel.words.observe(viewLifecycleOwner){
             words.clear()
             words.addAll(it)
             adapter.notifyItemRangeChanged(0, words.size)
         }
+
+        viewModel.responseStatus.observe(viewLifecycleOwner){
+            when(it){
+                TotalWordViewModel.SUCCESS -> {
+                    viewBinding.wordRecyclerView.isVisible = true
+                    viewBinding.tvTip.isVisible = false
+                }
+                TotalWordViewModel.EMPTY -> {
+                    viewBinding.wordRecyclerView.isVisible = false
+                    viewBinding.tvTip.isVisible = true
+                    viewBinding.tvTip.text = "暂无数据"
+                }
+                TotalWordViewModel.ERROR -> {
+                    viewBinding.wordRecyclerView.isVisible = false
+                    viewBinding.tvTip.isVisible = true
+                    viewBinding.tvTip.text = "请求异常"
+                }
+            }
+        }
+
         viewModel.searchWords(requireContext())
     }
 

@@ -11,9 +11,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.junit.Test
 import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
-import java.util.*
 import javax.crypto.Cipher
-import javax.crypto.spec.SecretKeySpec
 import kotlin.random.Random
 
 class NetworkUnitTest {

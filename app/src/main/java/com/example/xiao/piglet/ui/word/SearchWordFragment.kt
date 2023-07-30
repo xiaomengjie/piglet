@@ -65,9 +65,9 @@ class SearchWordFragment : BaseFragment<FragmentSearchWordBinding>() {
                     return@launchWhenCreated
                 }
                 val response = if (content.isChinese()){
-                    NetworkClient.create<WordAPI>(requireContext()).queryWord(chinese = content)
+                    NetworkClient.create<WordAPI>().queryWord(chinese = content)
                 }else{
-                    NetworkClient.create<WordAPI>(requireContext()).queryWord(english = content)
+                    NetworkClient.create<WordAPI>().queryWord(english = content)
                 }
                 response.data?.let {
                     words.clear()

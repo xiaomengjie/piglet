@@ -5,6 +5,7 @@ import android.os.Looper
 import com.example.xiao.piglet.ui.dialog.LoadingDialog
 import okhttp3.Interceptor
 import okhttp3.Response
+import java.io.IOException
 
 class LoadingInterceptor(private val dialog: LoadingDialog): Interceptor {
 
@@ -12,6 +13,7 @@ class LoadingInterceptor(private val dialog: LoadingDialog): Interceptor {
         Handler(Looper.getMainLooper())
     }
 
+    @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         handler.post{
             dialog.show()
