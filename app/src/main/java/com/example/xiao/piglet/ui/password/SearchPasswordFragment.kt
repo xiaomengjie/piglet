@@ -9,6 +9,8 @@ import com.example.xiao.piglet.base.BaseFragment
 import com.example.xiao.piglet.databinding.FragmentSearchPasswordBinding
 import com.example.xiao.piglet.network.NetworkClient
 import com.example.xiao.piglet.network.api.PasswordAPI
+import com.example.xiao.piglet.tool.SSL
+import com.example.xiao.piglet.tool.aesDecrypt
 
 class SearchPasswordFragment : BaseFragment<FragmentSearchPasswordBinding>() {
     override fun initViewBinding(inflater: LayoutInflater): FragmentSearchPasswordBinding {
@@ -24,8 +26,10 @@ class SearchPasswordFragment : BaseFragment<FragmentSearchPasswordBinding>() {
             val content = viewBinding.etSearchContent.text.toString()
             if (content.isNotEmpty()){
                 lifecycleScope.launchWhenCreated {
-                    val result = NetworkClient.create<PasswordAPI>().searchPassword(content)
-                    viewBinding.tvSearchResult.text = result.data?.content?: "还未保存${content}的密码"
+                    SSL.sslRequest {
+                        val result = NetworkClient.create<PasswordAPI>().searchPassword(content)
+                        viewBinding.tvSearchResult.text = result.data?.content?.aesDecrypt(it)?: "还未保存${content}的密码"
+                    }
                 }
             }
         }

@@ -10,9 +10,8 @@ import com.example.xiao.piglet.bean.Password
 import com.example.xiao.piglet.databinding.FragmentIncreasePasswordBinding
 import com.example.xiao.piglet.network.api.PasswordAPI
 import com.example.xiao.piglet.tool.PasswordGenerator
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import kotlin.random.Random
+import com.example.xiao.piglet.tool.SSL
+import com.example.xiao.piglet.tool.aesEncrypt
 
 //生成密码并保存
 class IncreasePasswordFragment : BaseFragment<FragmentIncreasePasswordBinding>() {
@@ -36,9 +35,13 @@ class IncreasePasswordFragment : BaseFragment<FragmentIncreasePasswordBinding>()
         if (name.isEmpty()) return
         lifecycleScope.launchWhenCreated {
             val content = PasswordGenerator.generatePasswordContent(passwordLength)
-            val password = Password(name, content, passwordLength)
-            NetworkClient.create<PasswordAPI>().insertPassword(password)
-                .refreshNotification(this@IncreasePasswordFragment, Password.INCREASE_PASSWORD, password)
+            SSL.sslRequest {
+                val password = Password(name, content.aesEncrypt(it), passwordLength)
+                NetworkClient.create<PasswordAPI>().insertPassword(password)
+                    .refreshNotification(this@IncreasePasswordFragment,
+                        TotalPasswordFragment.INCREASE_PASSWORD,
+                        Password(name, content, passwordLength))
+            }
         }
     }
 }

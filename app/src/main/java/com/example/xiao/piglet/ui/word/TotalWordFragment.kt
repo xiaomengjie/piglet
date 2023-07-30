@@ -51,7 +51,7 @@ class TotalWordFragment : BaseFragment<FragmentTotalWordBinding>() {
     }
 
     override fun <T> refreshDisplay(messageEvent: MessageEvent<T>) {
-        when(messageEvent.code){
+        when(messageEvent.type){
             INCREASE_WORD -> {
                 val words = messageEvent.data as List<Word>
                 this.words.addAll(0, words)
@@ -75,6 +75,6 @@ class TotalWordFragment : BaseFragment<FragmentTotalWordBinding>() {
     }
 
     companion object{
-        const val INCREASE_WORD = 1
+        const val INCREASE_WORD = "increase_word"
     }
 }

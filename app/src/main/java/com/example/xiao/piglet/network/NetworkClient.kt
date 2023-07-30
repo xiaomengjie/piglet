@@ -1,7 +1,7 @@
 package com.example.xiao.piglet.network
 
 import android.content.Context
-import com.example.xiao.piglet.base.PigletApplication
+import com.example.xiao.piglet.network.interceptor.LoadingInterceptor
 import com.example.xiao.piglet.ui.dialog.LoadingDialog
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,8 +13,8 @@ class NetworkClient {
 
     companion object{
 
-//        const val BASE_URL = "http://119.91.136.187:8080/ktorpigletservice/"
-        const val BASE_URL = "http://192.168.1.102:8080/"
+        const val BASE_URL = "http://119.91.136.187:8080/ktorpigletservice/"
+//        const val BASE_URL = "http://192.168.1.103:8080/"
 
 //        const val BAIDU_BASE_URL = "https://fanyi-api.baidu.com/api/trans/vip/"
 

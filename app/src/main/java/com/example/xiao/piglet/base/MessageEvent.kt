@@ -6,7 +6,7 @@ import org.greenrobot.eventbus.EventBus
 
 data class MessageEvent<T>(
     //类型选择
-    val code: Int,
+    val type: String,
     //数据
     val data: T? = null,
     //更新位置

@@ -13,4 +13,7 @@ interface HandshakeAPI {
 
     @POST("ssl/aes_key")
     suspend fun key(@Body byteArray: RequestBody): ResponseBody
+
+    @POST("ssl/key_clean")
+    suspend fun keyClean(): ResponseBody
 }

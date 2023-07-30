@@ -16,9 +16,9 @@ data class Response<T>(
     @SerializedName("result")
     val data: T? = null
 ){
-    fun <T> refreshNotification(lifecycleOwner: LifecycleOwner, code: Int, data: T? = null, position: Int = -1){
+    fun <T> refreshNotification(lifecycleOwner: LifecycleOwner, type: String, data: T? = null, position: Int = -1){
         if (this.code == 200){
-            EventBus.getDefault().post(MessageEvent(code, data, position))
+            EventBus.getDefault().post(MessageEvent(type, data, position))
             when(lifecycleOwner){
                 is Activity -> lifecycleOwner.finish()
                 is Fragment -> lifecycleOwner.findNavController().popBackStack()
