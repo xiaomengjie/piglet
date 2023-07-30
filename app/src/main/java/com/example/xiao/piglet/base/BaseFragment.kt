@@ -10,8 +10,14 @@ import org.greenrobot.eventbus.ThreadMode
 
 abstract class BaseFragment<VB: ViewBinding>: Fragment(), MenuProvider {
 
+    protected open val TAG = javaClass.simpleName
+
     //ViewBinding
-    protected lateinit var viewBinding: VB
+    protected val viewBinding: VB by lazy {
+        val initViewBinding = initViewBinding(layoutInflater)
+        initView(initViewBinding)
+        initViewBinding
+    }
 
     abstract fun initViewBinding(inflater: LayoutInflater): VB
 
@@ -40,10 +46,7 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment(), MenuProvider {
         savedInstanceState: Bundle?
     ): View {
         if (inflateMenu) activity?.addMenuProvider(this)
-        return initViewBinding(inflater).apply {
-            viewBinding = this
-        }.root
-
+        return viewBinding.root
     }
 
     override fun onDestroyView() {
@@ -54,4 +57,6 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment(), MenuProvider {
     //EventBus刷新方法
     @Subscribe(threadMode = ThreadMode.MAIN)
     open fun <T> refreshDisplay(messageEvent: MessageEvent<T>){}
+
+    protected open fun initView(viewBinding: VB){}
 }

@@ -2,11 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation_main"
-    app:startDestination="@id/nav_password">
-
-    <include app:graph="@navigation/navigation_password"/>
+    app:startDestination="@id/nav_word">
 
     <include app:graph="@navigation/navigation_word"/>
 
+    <include app:graph="@navigation/navigation_password"/>
+
     <include app:graph="@navigation/navigation_gen_shin"/>
+
 </navigation>

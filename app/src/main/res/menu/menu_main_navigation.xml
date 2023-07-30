@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_password"
-        android:icon="@drawable/ic_password_black"
-        android:title="Password" />
-
-    <item
         android:id="@+id/nav_word"
         android:icon="@drawable/ic_word_black"
         android:title="Word" />
+
+    <item
+        android:id="@+id/nav_password"
+        android:icon="@drawable/ic_password_black"
+        android:title="Password" />
 
     <item android:id="@+id/nav_gen_shin"
         android:title="GenShin"

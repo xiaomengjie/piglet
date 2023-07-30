@@ -8,11 +8,4 @@ data class Password(
     val name: String,
     val content: String,
     val size: Int = 12
-): Parcelable{
-    companion object{
-        const val INCREASE_PASSWORD = 1
-        const val DELETE_PASSWORD = 2
-        const val UPDATE_PASSWORD = 3
-        const val QUERY_PASSWORD = 4
-    }
-}
+): Parcelable

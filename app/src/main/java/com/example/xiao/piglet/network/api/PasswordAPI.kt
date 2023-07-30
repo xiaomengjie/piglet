@@ -3,6 +3,7 @@ package com.example.xiao.piglet.network.api
 import com.example.xiao.piglet.bean.Password
 import com.example.xiao.piglet.bean.Response
 import okhttp3.RequestBody
+import okio.IOException
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -12,7 +13,7 @@ interface PasswordAPI {
 
     //增加密码
     @POST("password/insert")
-    suspend fun insertPassword(@Body password: Password): Response<Password>
+    suspend fun insertPassword(@Body password: Password): Response<Boolean>
 
     //通过位置删除密码
     @POST("password/delete")

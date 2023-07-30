@@ -9,6 +9,8 @@ import com.example.xiao.piglet.bean.Password
 import com.example.xiao.piglet.databinding.FragmentEditPasswordBinding
 import com.example.xiao.piglet.network.NetworkClient
 import com.example.xiao.piglet.network.api.PasswordAPI
+import com.example.xiao.piglet.tool.SSL
+import com.example.xiao.piglet.tool.aesEncrypt
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 
@@ -36,10 +38,15 @@ class EditPasswordFragment : BaseFragment<FragmentEditPasswordBinding>() {
         viewBinding.btnConfirm.setOnClickListener {
             //更新密码
             lifecycleScope.launchWhenCreated {
-                val content = viewBinding.etContent.text.toString()
-                val password = password.copy(name = password.name, content = content, size = content.length)
-                NetworkClient.create<PasswordAPI>().updatePassword(password)
-                    .refreshNotification(this@EditPasswordFragment, Password.UPDATE_PASSWORD, password, position)
+                SSL.sslRequest {
+                    val content = viewBinding.etContent.text.toString()
+                    val password = password.copy(name = password.name, content = content.aesEncrypt(it), size = content.length)
+                    NetworkClient.create<PasswordAPI>().updatePassword(password)
+                        .refreshNotification(this@EditPasswordFragment,
+                            TotalPasswordFragment.UPDATE_PASSWORD,
+                            Password(password.name, content, content.length),
+                            position)
+                }
             }
         }
     }
@@ -48,7 +55,7 @@ class EditPasswordFragment : BaseFragment<FragmentEditPasswordBinding>() {
         lifecycleScope.launchWhenCreated {
             NetworkClient.create<PasswordAPI>().deletePassword(
                 password.name.toRequestBody(("text/plain".toMediaTypeOrNull()))
-            ).refreshNotification<Nothing>(this@EditPasswordFragment, Password.DELETE_PASSWORD, position = position)
+            ).refreshNotification<Nothing>(this@EditPasswordFragment, TotalPasswordFragment.DELETE_PASSWORD, position = position)
         }
     }
 

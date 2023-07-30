@@ -1,8 +1,8 @@
 package com.example.xiao.piglet.ui.word
 
-import android.os.Bundle
 import android.view.*
-import androidx.lifecycle.lifecycleScope
+import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.xiao.piglet.R
@@ -11,10 +11,13 @@ import com.example.xiao.piglet.base.BaseFragment
 import com.example.xiao.piglet.base.MessageEvent
 import com.example.xiao.piglet.bean.Word
 import com.example.xiao.piglet.databinding.FragmentTotalWordBinding
-import com.example.xiao.piglet.network.NetworkClient
-import com.example.xiao.piglet.network.api.WordAPI
+import com.example.xiao.piglet.viewmodel.TotalWordViewModel
 import com.google.android.material.divider.MaterialDividerItemDecoration
 
+/*
+* 跳转到SearchWordFragment时，onDestroyView会调用
+* 返回TotalWordFragment时，会从onCreateView调用
+* */
 class TotalWordFragment : BaseFragment<FragmentTotalWordBinding>() {
 
     override fun initViewBinding(inflater: LayoutInflater): FragmentTotalWordBinding {
@@ -28,42 +31,57 @@ class TotalWordFragment : BaseFragment<FragmentTotalWordBinding>() {
         get() = true
 
     private val words: MutableList<Word> = mutableListOf()
-    private val adapter by lazy {
-        TotalWordAdapter(words){ view, position ->
-            findNavController()
-                .navigate(R.id.action_total_word_fragment_to_word_detail_fragment, Bundle().apply {
-                    putString(arguments_english_word, words[position].english)
-                })
-        }
+    private val adapter by lazy { TotalWordAdapter(words) }
+
+    private val viewModel by lazy {
+        ViewModelProvider(this)[TotalWordViewModel::class.java]
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initView(viewBinding: FragmentTotalWordBinding) {
+        super.initView(viewBinding)
         viewBinding.wordRecyclerView.layoutManager = LinearLayoutManager(context)
         viewBinding.wordRecyclerView.addItemDecoration(MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL))
         viewBinding.wordRecyclerView.adapter = adapter
 
-        lifecycleScope.launchWhenCreated {
-            NetworkClient.create<WordAPI>().queryAllWord().data?.let {
-                words.clear()
-                words.addAll(it)
-                adapter.notifyItemRangeChanged(0, words.size)
+        viewBinding.swipeRefresh.setOnRefreshListener {
+            viewBinding.swipeRefresh.isRefreshing = false
+            viewModel.searchWords(requireContext())
+        }
+
+        viewModel.words.observe(viewLifecycleOwner){
+            words.clear()
+            words.addAll(it)
+            adapter.notifyItemRangeChanged(0, words.size)
+        }
+
+        viewModel.responseStatus.observe(viewLifecycleOwner){
+            when(it){
+                TotalWordViewModel.SUCCESS -> {
+                    viewBinding.wordRecyclerView.isVisible = true
+                    viewBinding.tvTip.isVisible = false
+                }
+                TotalWordViewModel.EMPTY -> {
+                    viewBinding.wordRecyclerView.isVisible = false
+                    viewBinding.tvTip.isVisible = true
+                    viewBinding.tvTip.text = "暂无数据"
+                }
+                TotalWordViewModel.ERROR -> {
+                    viewBinding.wordRecyclerView.isVisible = false
+                    viewBinding.tvTip.isVisible = true
+                    viewBinding.tvTip.text = "请求异常"
+                }
             }
         }
+
+        viewModel.searchWords(requireContext())
     }
 
     override fun <T> refreshDisplay(messageEvent: MessageEvent<T>) {
-        when(messageEvent.code){
+        when(messageEvent.type){
             INCREASE_WORD -> {
-                val word = messageEvent.data as Word
-                val index = words.indexOf(word)
-                if (index == -1){
-                    words.add(word)
-                    adapter.notifyItemInserted(words.size - 1)
-                }else{
-                    words[index] = word
-                    adapter.notifyItemChanged(index)
-                }
+                val words = messageEvent.data as List<Word>
+                this.words.addAll(0, words)
+                adapter.notifyItemRangeInserted(0, words.size)
             }
         }
     }
@@ -83,7 +101,6 @@ class TotalWordFragment : BaseFragment<FragmentTotalWordBinding>() {
     }
 
     companion object{
-        const val INCREASE_WORD = 1
-        const val arguments_english_word = "arguments_english_word"
+        const val INCREASE_WORD = "increase_word"
     }
 }
